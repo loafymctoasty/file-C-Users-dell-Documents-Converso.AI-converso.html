@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Converso.ai - Your Unlimited AI Assistant</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #000; /* Black background */
+            color: #fff; /* White text */
+        }
+        header {
+            background: #007bff; /* Bright blue header */
+            color: #fff; /* White text */
+            padding: 10px 20px;
+            text-align: center;
+        }
+        h1 {
+            margin: 0;
+        }
+        .container {
+            width: 80%;
+            margin: 20px auto;
+        }
+        .chat-box {
+            border: 1px solid #ccc;
+            padding: 10px;
+            background: #1a1a1a; /* Dark gray background for chat box */
+            color: #fff; /* White text */
+            height: 300px;
+            overflow-y: auto;
+        }
+        .input-box {
+            margin-top: 10px;
+        }
+        input[type="text"] {
+            width: 80%;
+            padding: 10px;
+            background-color: #007bff; /* Blue input box */
+            color: #fff; /* White text */
+            border: none; /* Remove border */
+        }
+        button {
+            padding: 10px 15px;
+            background: #0056b3; /* Dark blue button */
+            color: #fff; /* White text */
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #004080; /* Even darker blue on hover */
+        }
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome to Converso.ai</h1>
+        <p>Your Unlimited AI Assistant</p>
+    </header>
+    <div class="container">
+        <div class="chat-box" id="chatBox"></div>
+        <div class="input-box">
+            <input type="text" id="userInput" placeholder="Type your message..." onkeypress="if(event.key === 'Enter') sendMessage();">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2024 Converso.ai. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function sendMessage() {
+            const userInput = document.getElementById('userInput').value.trim();
+            const chatBox = document.getElementById('chatBox');
+
+            if (!userInput) return; // Do nothing if input is empty
+
+            // Display user's message
+            chatBox.innerHTML += `<p><strong>You:</strong> ${userInput}</p>`;
+            document.getElementById('userInput').value = '';
+
+            // Get AI response
+            const aiResponse = getAIResponse(userInput);
+            chatBox.innerHTML += `<p><strong>Converso.ai:</strong> ${aiResponse}</p>`;
+            chatBox.scrollTop = chatBox.scrollHeight; // Auto-scroll
+        }
+
+        function getAIResponse(input) {
+            // Basic AI response logic
+            const lowerInput = input.toLowerCase();
+            const responses = [
+                "Can you tell me more about that?",
+                "That's fascinating! What else?",
+                "I'm here to help. What would you like to know?",
+                "Can I assist you with something specific?",
+                "What do you have in mind?",
+                "I'm listening. Tell me more."
+            ];
+
+            // Example responses
+            if (lowerInput.includes("hello")) {
+                return "Hello! How can I assist you today?";
+            } else if (lowerInput.includes("help")) {
+                return "Sure! What do you need help with?";
+            } else if (lowerInput.includes("what can you do")) {
+                return "I can provide information, generate ideas, and much more. Just ask!";
+            } else if (lowerInput.includes("roleplay")) {
+                return "Roleplaying is not allowed. Please ask something else.";
+            } else if (lowerInput.includes("lua script")) {
+                return generateLuaScript();
+            } else {
+                // Random response for undefined inputs
+                return responses[Math.floor(Math.random() * responses.length)];
+            }
+        }
+
+        function generateLuaScript() {
+            return `-- Basic Lua script example\nfunction greet(name)\n  print("Hello, " .. name .. "!")\nend\n\ngreet("Converso.ai User")`;
+        }
+    </script>
+</body>
+</html>
